@@ -1,0 +1,22 @@
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{table}[]
+\centering
+\caption{Translational Tracking Error for 2.0 m threshold. Ratio is computed from number of frames with error under threshold, while mean is then derived from those same frames}
+\label{my-label}
+\begin{tabular}{lllll}
+
+                             &                            & \multicolumn{3}{c}{Methods}                                                   \\ \hline
+                             &                            & IRLS                  & Particle              & Approach                      \\ \hline
+\multirow{2}{*}{ojflo\_data} & \multicolumn{1}{l|}{mean}  & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{(((  results['ojflo_data']['mean']|escape_tex )))}  \\ \cline{2-5} 
+                             & \multicolumn{1}{l|}{ratio} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{(((  results['ojflo_data']['ratio']|escape_tex )))}  \\ \hline
+\multirow{2}{*}{ojflo\_occ}  & \multicolumn{1}{l|}{mean}  & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{(((  results['ojflo_occ']['mean']|escape_tex )))} \\ \cline{2-5} 
+                             & \multicolumn{1}{l|}{ratio} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{(((  results['ojflo_occ']['ratio']|escape_tex )))}  \\ \hline
+\multirow{2}{*}{ron\_data}   & \multicolumn{1}{l|}{mean}  & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{(((  results['ron_data']['mean']|escape_tex )))} \\ \cline{2-5} 
+                             & \multicolumn{1}{l|}{ratio} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{(((  results['ron_data']['ratio']|escape_tex )))}  \\ \hline
+\multirow{2}{*}{ron\_occ}    & \multicolumn{1}{l|}{mean}  & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{(((  results['ron_occ']['mean']|escape_tex )))} \\ \cline{2-5} 
+                             & \multicolumn{1}{l|}{ratio} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{(((  results['ron_occ']['ratio']|escape_tex )))}  \\ \hline
+\multirow{2}{*}{tide}        & \multicolumn{1}{l|}{mean}  & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{(((  results['tide']['mean']|escape_tex )))} \\ \cline{2-5} 
+                             & \multicolumn{1}{l|}{ratio} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{(((  results['tide']['ratio']|escape_tex )))}  \\ \hline
+\end{tabular}
+\end{table}

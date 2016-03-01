@@ -3,6 +3,9 @@
 from __future__ import division
 from __future__ import print_function
 
+import flask
+import re
+
 from decimal import Decimal
 import numpy as np
 import pandas as pd
@@ -208,3 +211,29 @@ def getGlobalErrors (base_poses_path, object_poses_path, object_error_path, star
 # %    error = obj_poses(1:3,4)-ob_pose(1:3,4);
 #     errors(i,1) = norm(error(1:3,4));
 # end
+
+app = flask.Flask(__name__)
+
+LATEX_SUBS = (
+    (re.compile(r'\\'), r'\\textbackslash'),
+    (re.compile(r'([{}_#%&$])'), r'\\\1'),
+    (re.compile(r'~'), r'\~{}'),
+    (re.compile(r'\^'), r'\^{}'),
+    (re.compile(r'"'), r"''"),
+    (re.compile(r'\.\.\.+'), r'\\ldots'),
+)
+
+def escape_tex(value):
+    newval = value
+    for pattern, replacement in LATEX_SUBS:
+        newval = pattern.sub(replacement, newval)
+    return newval
+
+texenv = app.create_jinja_environment()
+texenv.block_start_string = '((*'
+texenv.block_end_string = '*))'
+texenv.variable_start_string = '((('
+texenv.variable_end_string = ')))'
+texenv.comment_start_string = '((='
+texenv.comment_end_string = '=))'
+texenv.filters['escape_tex'] = escape_tex
