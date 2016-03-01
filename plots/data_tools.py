@@ -10,7 +10,7 @@ from decimal import Decimal
 import numpy as np
 import pandas as pd
 import os
-import csv
+# import csv
 
 import itertools
 
@@ -44,29 +44,21 @@ def synchronize_Object_TF_Pose(dataDir):
     
     # ## Load pose info into dataframe
     base_df = pd.read_csv(base_file, header=None, delim_whitespace=True, dtype=str)
-    base_df = base_df.set_index(0)
-
     object_df = pd.read_csv(object_file, header=None, delim_whitespace=True, dtype=str)
-    object_df = object_df.set_index(0)
     
     # ## Load and associate data
-    base_array = np.array(base_df.index, dtype=np.dtype(Decimal))
-    object_array = np.array(object_df.index, dtype=np.dtype(Decimal))
+    base_array = np.array(base_df[0], dtype=np.dtype(Decimal))
+    object_array = np.array(object_df[0], dtype=np.dtype(Decimal))
     
     idx = np.searchsorted(base_array, object_array) - 1
     mask = idx >= 0
-    df = pd.DataFrame({"base_array":base_array[idx][mask], "object_array":object_array[mask]})
-    
-    # ## Loop over matches and format as string for index
-    base_poses = df['base_array'].astype(basestring).values
-    object_poses = df['object_array'].astype(basestring).values
     
     # ## Save pose file as well
-    base_df2 = base_df[base_df.index.map(lambda x: x in base_poses)]
-    base_df2.to_csv(base_sync_file, header=None)
+    base_df2 = base_df.ix[idx]
+    base_df2.to_csv(base_sync_file, header=None, index=False)
 
-    object_df2 = object_df[object_df.index.map(lambda x: x in object_poses)]
-    object_df2.to_csv(object_sync_file, header=None)
+    object_df2 = object_df[mask]
+    object_df2.to_csv(object_sync_file, header=None, index=False)
     
     print('\tbase_df2: ', base_df2.shape)
     print('\tobject_df2: ', object_df2.shape)
